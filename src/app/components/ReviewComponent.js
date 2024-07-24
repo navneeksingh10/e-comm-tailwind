@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useCart } from '../components/CartContext'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 export default function ReviewComponent({ id }) {
   const router = useRouter()
@@ -47,7 +48,9 @@ export default function ReviewComponent({ id }) {
         {/* Product image */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-            <img src={product.image} alt={product.title} className="h-full w-full object-cover object-center" />
+            <Image src={product.image} alt={product.title} width={500} height={500} className="h-full w-full object-cover object-center" />
+            {/* <img src={product.image} alt={product.title}  className="h-full w-full object-cover object-center" /> */}
+
           </div>
         </div>
 

@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '../components/CartContext';
+import Image from "next/image";
 
 function Navbar() {
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -288,7 +289,7 @@ function Navbar() {
                 <div className="ml-4 flex lg:ml-0">
                   <Link href="/">
                     <span className="sr-only"></span>
-                    <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
+                    <Image className="h-8 w-auto" src={"https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"} width={20} height={20} alt="" />
                   </Link>
                 </div>
 

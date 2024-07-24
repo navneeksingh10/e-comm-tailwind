@@ -1,6 +1,7 @@
 'use client'
 import { useCart } from '../components/CartContext';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Cart() {
   const { cart, removeFromCart, addToCart, getTotalPrice } = useCart();
@@ -29,7 +30,9 @@ export default function Cart() {
         <>
           {getUniqueItems().map((item) => (
             <div key={item.id} className="flex items-center border-b py-4">
-              <img src={item.image} alt={item.title} className="w-20 h-20 object-cover mr-4" />
+              <Image src={item.image} alt={item.title} width={100} height={100} className="w-20 h-20 object-cover mr-4" />
+              {/* <img src={item.image} alt={item.title} className="w-20 h-20 object-cover mr-4" /> */}
+
               <div className="flex-grow">
                 <h2 className="text-lg font-semibold">{item.title}</h2>
                 <p className="text-gray-600">${item.price}</p>

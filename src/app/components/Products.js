@@ -1,6 +1,7 @@
 'use client'
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -35,7 +36,7 @@ function Products() {
             <div key={product.id} className="group relative">
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                 <Link href={`/review/${product.id}`}>
-                  <img src={product.image} alt={product.title} className="h-full w-full object-cover object-center lg:h-full lg:w-full"/>
+                  <Image src={product.image} alt={product.title} width={200} height={200} className="h-full w-full object-cover object-center lg:h-full lg:w-full"/>
                 </Link>
               </div>
               <div className="mt-4 flex justify-between">
@@ -73,7 +74,7 @@ function Products() {
               >
                 {number + 1}
               </button>
-          
+              
             ))}
             <button
               onClick={() => paginate(currentPage + 1)}
