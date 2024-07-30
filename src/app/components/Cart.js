@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Cart() {
-  const { cart, removeFromCart, addToCart, getTotalPrice } = useCart();
+  const { cart, removeFromCart, addToCart, getTotalPrice, isItemQuantityOne, clearCart } = useCart();
 
   // Function to get the quantity of a specific item in the cart
   const getItemQuantity = (itemId) => {
@@ -20,6 +20,7 @@ export default function Cart() {
       }
     });
     return uniqueItems;
+    
   };
   return (
     <div className="container mx-auto mt-10">
@@ -38,15 +39,20 @@ export default function Cart() {
                 <p className="text-gray-600">${item.price}</p>
                 <div className="flex items-center mt-2">
                   <span className="mr-2">Quantity: {getItemQuantity(item.id)}</span>
+                  
                   <button
                     onClick={() => addToCart(item)}
                     className="bg-green-500 text-white px-2 py-1 rounded mr-2"
                   >
                     +
                   </button>
+
                   <button
                     onClick={() => removeFromCart(item.id)}
-                    className="bg-red-500 text-white px-2 py-1 rounded"
+                    className={`bg-red-500 text-white px-2 py-1 rounded ${
+                      isItemQuantityOne(item.id) ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                    disabled={isItemQuantityOne(item.id)}
                   >
                     -
                   </button>
@@ -59,12 +65,20 @@ export default function Cart() {
           ))}
           <div className="mt-8">
             <p className="text-xl font-bold">Total: ${getTotalPrice().toFixed(2)}</p>
+            
+            <div className='flex justify-between '> 
             <Link href="/checkout">
-              <p className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">
+            <p className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">
                 Proceed to Checkout
               </p>
             </Link>
-          </div>
+             <button onClick={clearCart} className='mt-6'>
+             <p className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">
+              Clear Cart
+             </p>
+              </button>
+             </div>
+             </div>
         </>
       )}
     </div>

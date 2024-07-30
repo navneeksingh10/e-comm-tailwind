@@ -4,11 +4,14 @@ import { useRouter } from 'next/navigation'
 import { useCart } from '../components/CartContext'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function ReviewComponent({ id }) {
   const router = useRouter()
-  const { addToCart } = useCart()
+  const {cart, addToCart } = useCart()
   const [product, setProduct] = useState(null)
+  const [isAdded, setIsAdded] = useState(false)
+
 
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
@@ -17,11 +20,22 @@ export default function ReviewComponent({ id }) {
       .catch(error => console.error('Error fetching product:', error))
   }, [id])
 
+  useEffect(() => {
+    if (product && cart.some(item => item.id === product.id)) {
+      setIsAdded(true)
+    }
+  }, [product, cart])
+
   const handleAddToBag = () => {
     if (product) {
       addToCart(product)
-      router.push('/cart')
+      setIsAdded(true)
     }
+
+    }
+
+  const handleGoToCart = () => {
+    router.push('/cart')
   }
   
   if (!product) return <div>Loading...</div>
@@ -48,7 +62,7 @@ export default function ReviewComponent({ id }) {
         {/* Product image */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-            <Image src={product.image} alt={product.title} width={500} height={500} className="h-full w-full object-cover object-center" />
+            <Image src={product.image} alt={product.title} width={300} height={300} priority={true} className="h-full w-full object-cover object-center" />
             {/* <img src={product.image} alt={product.title}  className="h-full w-full object-cover object-center" /> */}
 
           </div>
@@ -69,10 +83,24 @@ export default function ReviewComponent({ id }) {
             <form className="mt-10">
               <button
                 type="button"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className={`mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 
+                  ${isAdded ? 'opacity-70 cursor-not-allowed' : ''}`}
+            
                 onClick={handleAddToBag}
+                disabled={isAdded}
               >
-                Add to bag
+                {isAdded ? 'Added to Cart' : 'Add to Cart'}
+              </button>
+            </form>
+            
+
+            <form className="mt-5">
+              <button
+                type="button"
+                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                onClick={handleGoToCart}
+              >
+                Go To Cart
               </button>
             </form>
           </div>

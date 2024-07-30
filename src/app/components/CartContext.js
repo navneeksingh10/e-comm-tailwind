@@ -1,4 +1,3 @@
-// CartContext.js
 'use client'
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 
@@ -6,6 +5,7 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
+
 
   const addToCart = (item) => {
     setCart((prevCart) => [...prevCart, item]);
@@ -26,12 +26,16 @@ export function CartProvider({ children }) {
     return cart.reduce((total, item) => total + item.price, 0);
   };
 
+  const isItemQuantityOne = (itemId) => {
+    return cart.filter(item => item.id === itemId).length === 1;
+  };
+
   const clearCart = () =>{
     setCart([]);
   };
   
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, getTotalPrice, clearCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, getTotalPrice, isItemQuantityOne , clearCart }}>
       {children}
     </CartContext.Provider>
   );

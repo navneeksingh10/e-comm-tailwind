@@ -9,6 +9,10 @@ export default function Checkout() {
   const {clearCart} = useCart();
 
   useEffect(() => {
+    
+  },[router, clearCart])
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       clearCart();
       router.push('/');  
