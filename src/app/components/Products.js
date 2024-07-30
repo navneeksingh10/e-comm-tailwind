@@ -93,7 +93,6 @@ function Products() {
   // // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const totalPages = Math.ceil(products.length / productsPerPage);
-  const totalpages = Math.ceil(products.lenght / productsPerpage)
 
   return (
     <div className="mt-16">
