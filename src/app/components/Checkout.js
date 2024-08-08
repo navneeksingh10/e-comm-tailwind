@@ -1,5 +1,5 @@
 'use client'
-
+import React from 'react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '../components/CartContext';
@@ -20,7 +20,6 @@ export default function Checkout() {
 
     return () => clearTimeout(timer);
   }, [router, clearCart]);
-
   return (
     <div className="container mx-auto mt-10 text-center">
       <h1 className="text-3xl font-bold mb-5">Thank you for your order!</h1>

@@ -20,7 +20,6 @@ export default function Cart() {
       }
     });
     return uniqueItems;
-    
   };
   return (
     <div className="container mx-auto mt-10">
