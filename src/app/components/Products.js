@@ -56,10 +56,10 @@ export default async function Products({ searchParams }) {
           ))}
         </div>
 
-        <PaginationControls 
+        {/* <PaginationControls 
           currentPage={page} 
           totalPages={totalPages} 
-        />
+        /> */}
       </div>
     </div>
   );
